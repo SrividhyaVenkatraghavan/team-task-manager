@@ -1,0 +1,5 @@
+[phases.setup] 
+nixPkgs = ["python313"] 
+ 
+[start] 
+cmd = "gunicorn app:app" 
