@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="auth-container">
+    <h2>📝 Create New Task</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label>Task Title</label>
+            <input type="text" name="title" placeholder="Enter task title" required>
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" placeholder="Enter task description" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Project</label>
+            <select name="project_id" required>
+                <option value="">Select Project</option>
+                {% for project in projects %}
+                <option value="{{ project.id }}">{{ project.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Assign To</label>
+            <select name="assigned_to" required>
+                <option value="">Select Member</option>
+                {% for user in users %}
+                <option value="{{ user.id }}">{{ user.username }} ({{ user.role }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Due Date</label>
+            <input type="date" name="due_date">
+        </div>
+        <button type="submit" class="btn btn-primary">Create Task</button>
+        <a href="{{ url_for('tasks') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

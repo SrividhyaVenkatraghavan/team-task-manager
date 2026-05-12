@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="auth-container">
+    <h2>📁 Create New Project</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label>Project Name</label>
+            <input type="text" name="name" placeholder="Enter project name" required>
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" placeholder="Enter project description" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Project</button>
+        <a href="{{ url_for('projects') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

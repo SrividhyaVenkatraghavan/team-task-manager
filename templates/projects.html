@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="section">
+    <div class="section-header">
+        <h2>📁 Projects</h2>
+        {% if current_user.role == 'admin' %}
+        <a href="{{ url_for('new_project') }}" class="btn btn-primary">+ New Project</a>
+        {% endif %}
+    </div>
+
+    {% if projects %}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Created</th>
+                {% if current_user.role == 'admin' %}
+                <th>Action</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.name }}</td>
+                <td>{{ project.description }}</td>
+                <td>{{ project.created_at.strftime('%d-%m-%Y') }}</td>
+                {% if current_user.role == 'admin' %}
+                <td>
+                    <form method="POST" action="{{ url_for('delete_project', project_id=project.id) }}">
+                        <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('Delete this project?')">Delete</button>
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No projects yet!
+        {% if current_user.role == 'admin' %}
+        <a href="{{ url_for('new_project') }}">Create one!</a>
+        {% endif %}
+    </p>
+    {% endif %}
+</div>
+{% endblock %}
